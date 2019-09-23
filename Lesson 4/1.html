@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 4. Task 1</title>
+</head>
+<body>
+<script>
+
+    "use strict";
+
+    /*
+    Написать функцию, преобразующую число в объект.
+    Передавая на вход число в диапазоне [0, 999], мы должны получить на выходе объект,
+    в котором в соответствующих свойствах описаны разряды числа:  - единицы (в свойстве firstDigit) 
+     - десятки (в свойстве secondDigit)  - сотни (в свойстве thirdDigit) Например, для числа 45 мы должны
+     получить следующий объект:  ``` {   firstDigit: 5,   secondDigit: 4,   thirdDigit: 0, } ```
+     */
+
+    /**
+     * Функция превращает число в объект.
+     * @param {number} num Передает число, которое необходимо превратить в объект.
+     * @returns {object} obj Возвращает объект с сотнями, десятками и единицами.
+     */
+    function getNumberToObject(num) {
+        let obj = {};
+        if (!Number.isInteger(num) || num < 0 || num > 999) {
+            alert("Число введено некорректно. Обьект аннулируется");
+        } else {
+            obj.firstDigit = Math.trunc(num / 100);
+            obj.secondDigit = Math.trunc((num % 100) / 10);
+            obj.thirdDigit = Math.trunc(num % 10);
+        }
+        return obj;
+
+    }
+
+
+    let num = +prompt('Введите число от 0 до 999:');
+    let result = getNumberToObject(num);
+    alert('Сотен: ' + result.firstDigit + ' Десятков: ' + result.secondDigit + ' Единиц: ' + result.thirdDigit);
+
+
+</script>
+</body>
+</html>

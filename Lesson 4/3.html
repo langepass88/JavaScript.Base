@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 4. Task 3</title>
+</head>
+<body>
+<script>
+    "use strict";
+
+    /*
+    На базе игры (приняв за пример), созданной на уроке, реализовать игру «Кто хочет стать миллионером?». 
+    Т.е. у вас должен быть главный объект содержащий всю логику игры, который будет иметь методы, например метод run,
+    возможно метод init и т.д. В игре должны быть заранее подготовлены список вопросов и ответов (как минимум 5 вопросов). 
+    Игра должна приветствовать пользователя, после чего задавать вопросы пользователю и предлагать варианты ответов
+    в виде теста, например: Сколько букв в слове "привет": a. Пять. b. Шесть. c. Семь. d. Куда я попал? Проверять правильный
+    вариант выбрал пользователь или нет, необходимо вести счет. По окончании игры, когда было задано 5 вопросов,
+    вы должны сообщить пользователю его счет и предложить сыграть снова. Также должна быть возможность выхода из игры
+    заранее, если пользователю надоело играть.
+     */
+
+
+    /**
+     * @type {object[]}  Массив с объектами вопросов.
+     */
+    const questions = [
+        {
+            text: 'Зачем нужен JavaScript?',
+            answers: ['Для frontend;', 'Для backend;', 'Для DataScience;', 'Для низкоуровневого программирования;'],
+            rightAnswer: 1,
+            price: 100,
+            savedSum: false,
+        },
+        {
+            text: 'Реализацией какого языка является JavaScript?',
+            answers: ['TCMAScript;', 'ECMAScript;', 'FCMAScript;', 'QSMAScript;'],
+            rightAnswer: 2,
+            price: 1000,
+            savedSum: true,
+        },
+        {
+            text: 'Какое наиболее широкое применение имеет JavaScript?',
+            answers: ['Программирование бытовой техники;', 'Искуственный интеллект;', 'Интерактивность веб-страниц;', 'Создание нейросетей;'],
+            rightAnswer: 3,
+            price: 10000,
+            savedSum: false,
+        },
+        {
+            text: 'В каком году появился JavaScript?',
+            answers: ['1992;', '1993;', '1994;', '1995;'],
+            rightAnswer: 4,
+            price: 100000,
+            savedSum: true,
+        },
+        {
+            text: 'Кто был автором JavaScript?',
+            answers: ['Брендан Эйх;', 'Джордж Стилус;', 'Саймон Полк;', 'Уилл Хенгрид;'],
+            rightAnswer: 1,
+            price: 1000000,
+            savedSum: false,
+        },
+    ];
+
+    /**
+     * Функция собирает вместе вопрос, варианты ответов и информацию о несгораемой сумме.
+     * @param {Object} question Принимает объект с вопросом.
+     * @return {string} message Выводит сообщение с вопросом.
+     */
+    function createQuestion(question) {
+        let message = 'на ' + question.price + ' рублей. ' + question.text;
+        for (let i = 0; i < question.answers.length; i++) {
+            message = message + '\n' + (i + 1) + ') ' + question.answers[i];
+        }
+        if (question.savedSum) {
+            message = message + '\n' + ' Это несгораемая сумма!';
+        }
+        return message;
+    }
+
+    /**
+     * Функция задает собранный вопрос, проверяя ответ пользователя на целочисленность.
+     * @param {string} mess Сообщение в prompt, которое будет видеть пользователь.
+     * @returns {number} Вернет число х, проверив его на целочисленность.
+     */
+    function askQuestion(mess) {
+        while (true) {
+          let x = +prompt(mess);
+            if (!Number.isInteger(x) || x < 0 || x > 4) {
+                alert('Необходимо ввести варианты ответа: 1, 2, 3 или 4. Для выхода нажмите 0.');
+                continue;
+            }
+            return x;
+        }
+    }
+
+    let prize = 0;
+    alert('Итак, сыграем в игру "Кто хочет стать миллионером в JavaScript"');
+
+    for (let i = 0; i < questions.length; i++) {
+        let questionMessage = 'Вопрос №' + (i + 1) + ' ' + createQuestion(questions[i]);
+        let answer = askQuestion(questionMessage);
+        if (answer === 0) {
+            alert('Вы добровольно захотели выйти из игры! До свидания.');
+            break;
+        }
+        if (answer === questions[i].rightAnswer) {
+            alert('Точно! Текущий выигрыш: ' + questions[i].price + ' рублей.');
+            prize = questions[i].price;
+        } else {
+            prize = 0;
+            alert('Ответ неверный. Вы проиграли!');
+            for (let j = i - 1; j >= 0; j--) {
+                if (questions[j].savedSum) {
+                    prize = questions[j].price;
+                    break;
+                }
+
+            }
+            break;
+        }
+    }
+    if (prize === questions[questions.length - 1].price) {
+        alert('Ура! Теперь Вы миллионер в JavaScript!');
+    } else if (prize === 0) {
+        alert('Увы, но вы ничего не выиграли. Возможно, вам стоит изучить какой-либо другой язык?');
+    } else {
+        alert('Миллионером стать не получилось, но зато Ваш выигрыш составил: ' + prize + ' рублей.');
+    }
+
+</script>
+
+</body>
+</html>

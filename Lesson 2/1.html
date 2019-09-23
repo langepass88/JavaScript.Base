@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 2. Task 1</title>
+</head>
+<body>
+<script>
+    "use strict";
+
+    /*    1. Объясните почему код даёт именно такие результаты? 
+        let a = 1, b = 1, c, d;
+
+          c = ++a;
+         alert(c); // 2
+
+        d = b++; 
+        alert(d); // 1
+
+        c = 2 + ++a; 
+        alert(c); // 5
+
+          d = 2 + b++;
+         alert(d); // 4
+
+        alert(a); // 3
+        alert(b); // 3
+    */
+
+    let a = 1, b = 1, c, d;
+
+    c = ++a;
+    document.write(c);
+    document.write(' // пре-инкремент. К а прибавляется единица, и далее приравнивается к значению с;');
+    document.write('<br>');
+
+    d = b++;
+    document.write(d);
+    document.write(' // пост-инкремент. Сначала значение b(1) приравнивается значению d, а затем вычисляется (прибавляется единица);');
+    document.write('<br>');
+
+    c = 2 + ++a;
+    document.write(c);
+    document.write(' // пре-инкремент. Сначала значение a(2) увеличивается на 1, а затем прибавляется еще 2);');
+    document.write('<br>');
+
+    d = 2 + b++;
+    document.write(d);
+    document.write(' // b = 2, сначало происходит прибавление на 2, далее значение b увеличивается на 1;');
+    document.write('<br>');
+
+    document.write(a);
+    document.write(' // значение а вычислилось в 1 и 3 примере  путем инкрементирования;');
+    document.write('<br>');
+
+    document.write(b);
+    document.write(' // значение b вычислосль в 2 и 4 примере путем инкрементирования;');
+    document.write('<br>');
+
+</script>
+</body>
+</html>

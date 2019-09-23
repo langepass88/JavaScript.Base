@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson5. Task 1 and Task 2</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 50px auto 0;
+        }
+
+        td {
+            border: 1px solid rgba(255, 159, 113, 0.4);
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 2em;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 1px #fbfff4;
+        }
+
+        .blackCell {
+            background-color: #320006;
+        }
+
+        .whiteCell {
+            background-color: #ffebef;
+        }
+
+        .deskColor {
+            background-color: #ffefd8;
+            color: #551d12;
+            text-shadow: none;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+<table id="game"></table>
+<script>
+    "use strict";
+
+    /* Task 1
+    Создать функцию, генерирующую шахматную доску. При этом можно использовать любые html-теги по своему желанию.
+    Доска должна быть разлинована соответствующим образом, т.е. чередовать черные и белые ячейки.
+    Строки должны нумероваться числами от 1 до 8, столбцы – латинскими буквами A, B, C, D, E, F, G, H.
+    */
+
+    /* Task 2
+    Заполнить созданную таблицу фигурами, фигуры должны выглядеть как картинки, либо можно использовать символы
+    (существуют символы шахматных фигур) причем все фигуры должны стоять на своих местах и быть соответственно
+    черными и белыми.
+    */
+
+    /**
+     * @property {HTMLElement} gameContainerEl Контейнер игры  {DOM элемент}.
+     */
+    const chess = {
+        gameContainerEl: document.getElementById('game'),
+
+        figures: [
+            {name: 'p', color: 'w', pos: 'a2'},
+            {name: 'p', color: 'w', pos: 'b2'},
+            {name: 'p', color: 'w', pos: 'c2'},
+            {name: 'p', color: 'w', pos: 'd2'},
+            {name: 'p', color: 'w', pos: 'e2'},
+            {name: 'p', color: 'w', pos: 'f2'},
+            {name: 'p', color: 'w', pos: 'g2'},
+            {name: 'p', color: 'w', pos: 'h2'},
+            {name: 'R', color: 'w', pos: 'a1'},
+            {name: 'N', color: 'w', pos: 'b1'},
+            {name: 'B', color: 'w', pos: 'c1'},
+            {name: 'Q', color: 'w', pos: 'd1'},
+            {name: 'K', color: 'w', pos: 'e1'},
+            {name: 'B', color: 'w', pos: 'f1'},
+            {name: 'N', color: 'w', pos: 'g1'},
+            {name: 'R', color: 'w', pos: 'h1'},
+
+            {name: 'p', color: 'b', pos: 'a7'},
+            {name: 'p', color: 'b', pos: 'b7'},
+            {name: 'p', color: 'b', pos: 'c7'},
+            {name: 'p', color: 'b', pos: 'd7'},
+            {name: 'p', color: 'b', pos: 'e7'},
+            {name: 'p', color: 'b', pos: 'f7'},
+            {name: 'p', color: 'b', pos: 'g7'},
+            {name: 'p', color: 'b', pos: 'h7'},
+            {name: 'R', color: 'b', pos: 'a8'},
+            {name: 'N', color: 'b', pos: 'b8'},
+            {name: 'B', color: 'b', pos: 'c8'},
+            {name: 'Q', color: 'b', pos: 'd8'},
+            {name: 'K', color: 'b', pos: 'e8'},
+            {name: 'B', color: 'b', pos: 'f8'},
+            {name: 'N', color: 'b', pos: 'g8'},
+            {name: 'R', color: 'b', pos: 'h8'},
+        ],
+        figuresHtmlCode: {
+            pw: '&#9817;',
+            Bw: '&#9815;',
+            Nw: '&#9816;',
+            Rw: '&#9814;',
+            Qw: '&#9813;',
+            Kw: '&#9812;',
+
+            pb: '&#9823;',
+            Bb: '&#9821;',
+            Nb: '&#9822;',
+            Rb: '&#9820;',
+            Qb: '&#9819;',
+            Kb: '&#9818;',
+        },
+
+
+        /**
+         * Метод отображения карты (игрового поля).
+         */
+        renderMap() {
+            const rows = ['', '8', '7', '6', '5', '4', '3', '2', '1', ''];
+            const cols = ['', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', ''];
+
+
+            // Генерация строк доски
+            for (let i = 0; i < rows.length; i++) {
+                const tr = document.createElement('tr');
+                this.gameContainerEl.appendChild(tr);
+
+                // Генерация полей доски
+                for (let j = 0; j < cols.length; j++) {
+                    const td = document.createElement('td');
+                    tr.appendChild(td);
+
+                    // Ввод дата-атрибутов для поиска полей расстановки фигур
+                    td.dataset.col = cols[j];
+                    td.dataset.row = rows[i];
+
+                    // Генерация чисел и букв на краях доски
+                    if (rows[i] === '' && cols[j] !== '') {
+                        td.innerHTML = cols[j];
+                    } else if (cols[j] === '' && rows[i] !== '') {
+                        td.innerHTML = rows[i];
+                    }
+
+                    // Стилизайия краев доски
+                    if (i === 0 || i === 9 || j === 0 || j === 9) {
+                        td.classList.add('deskColor');
+                    }
+
+                    //Генерация цвета шахматного поля
+                    else if (this.isCellIsBlack(i, j)) {
+                        td.classList.add('blackCell');
+                    } else {
+                        td.classList.add('whiteCell');
+                    }
+                }
+            }
+
+        },
+
+        /**
+         * Определяет является ли ячейка черной.
+         * @param {int} rowNum Номер в строке.
+         * @param {int} colNum Номер в колонке.
+         * @returns {boolean} true, если ячейка должна быть черной, иначе false.
+         */
+        isCellIsBlack(rowNum, colNum) {
+            return rowNum % 2 === 0 && colNum % 2 === 1 || rowNum % 2 === 1 && colNum % 2 === 0;
+        },
+
+        /**
+         * Отображает фигуры.
+         */
+
+        renderFigures() {
+            for (const figure of this.figures) {
+                const col = figure.pos.charAt(0); // буква фигуры
+                const row = figure.pos.charAt(1); // цифра фигуры
+
+                document.querySelector(`[data-col="${col}"][data-row="${row}"]`).innerHTML
+                    = this.figuresHtmlCode[figure.name + figure.color];
+            }
+
+        }
+    };
+
+    // Запускаем метод отображения доски.
+    chess.renderMap();
+
+    // Запускаем метод отображения фигур.
+    chess.renderFigures();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 3. Task 3.</title>
+</head>
+<body>
+<script>
+    "use strict";
+
+    /*
+    3.  Нарисовать горку с помощью console.log (используя цикл for), как показано на рисунке, 
+    только у вашей горки должно быть 20 рядов, а не 5:
+      ```
+     x 
+    xxx
+     xxxxx 
+    x xxxxxx
+    xx xxxxxxx```
+
+     */
+
+    document.write('<b>Задание №3.</b> Нарисовать пирамиду с 20 рядами<br>');
+    let str = 'x';
+
+    for (let i = 0; i < 20; i++) {
+        document.write(str);
+        document.write('<br>');
+        str = str + 'xx';
+    }
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 3. Task 4</title>
+</head>
+<body>
+<script>
+    "use strict";
+
+    /*
+    С помощью цикла while вывести все простые числа в промежутке от 0 до 100 (можно без оптимизаций).
+     */
+
+    /**
+     * Функция проверяет является ли число простым.
+     * @param {number} number Параметр передает число.
+     * @returns {boolean} Функция возвраещает true, если число простое или false, если нет.
+     */
+    function isPrime(number) {
+        if (number < 2) {
+            return false;
+        }
+        for (let i = 2;  i <= Math.sqrt(number); i++) { // идет перебор цифр, предшествующих i
+            if (number % i === 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    let i = 0;
+    while (i <= 100) { // цикл прогонки чисел от 0 до 100
+        if (isPrime(i)) {
+            document.write(i + '<br>');
+        }
+        i++;
+    }
+
+
+</script>
+</body>
+</html>

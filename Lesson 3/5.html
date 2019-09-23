@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 3. Task 5</title>
+</head>
+<body>
+
+<script>
+
+    "use strict";
+
+    /*
+    Дан массив (создать такой же, с такими же значениями):  ``` const arr = [   [2, 4, 6],   [1, 5, 10],   [7, 4, 1], ];
+    */
+
+    /**
+     * Функция вычисляет сумму элементов массива
+     * @param {array} arr Массив, сумму элементов которого необходимо посчитать.
+     * @returns {number} Сумма элементов массива.
+     */
+    function getSumOfElements(arr) {
+        let sum = 0;
+        for (let i of arr) {
+
+            sum += i;
+        }
+        return sum;
+    }
+
+    /**
+     * Функция проверяет число на его целочисленность.
+     * @param {number} x Число, которое вводит пользователь.
+     * @param {string} mess Сообщение в prompt, которое будет видеть пользователь.
+     * @returns {number} Вернет число х, проверив его на целочисленность.
+     */
+    function isValid(x, mess) {
+        while (true) {
+            x = +prompt(mess);
+            if (!Number.isInteger(x) || (x <= 0)) {
+                alert('Необходимо ввести целое положительное число!');
+                continue;
+            }
+            return x;
+        }
+
+    }
+
+
+    let arr = []; // Пустой массив, где будут хранится другие массивы
+    let arraySize = isValid(arr.length, "Введите количество массивов");
+
+    // Ввод значений массива
+
+    for (let i = 0; i < arraySize; i++) {
+        arr.push([]);
+        while (true) {
+            let count = prompt(`Добавьте элемент массива ${i}. Если хотите окончить ввод нажмите 'q'`);
+            if (count === 'q' || count === 'й') {
+                alert(`Ввод элементов в массив ${i} завершен`);
+                break;
+            }
+            if (count === '') {
+                alert('Необходимо ввести целое число!'); // Пустая строка генерирует 0, я думаю это нежелательно
+                continue;
+            }
+            count = +count;
+            if (!Number.isInteger(count)) {
+                alert('Необходимо ввести целое число!');
+                continue;
+            }
+            arr[i].push(count);
+        }
+
+    }
+
+    // Вывод массива с читабельном виде
+
+    for (let i = 0; i < arr.length; i++) {
+        document.write(`Массив c индексом ${i}: `);
+        for (let j = 0; j < arr[i].length; j++) {
+            document.write(` ${arr[i][j]}`);
+        }
+        document.write('<br>');
+    }
+    document.write('<hr>');
+
+    let maxSumOfArrayIndex = 0; // Индекс с максимальной суммой массива
+    let maxSumOfArray = getSumOfElements(arr[maxSumOfArrayIndex]); // Максимальная сумма индекса массива массива
+
+    for (let j = 1; j < arr.length; j++) { // Цикл поиска индекса массива с максимальной суммой
+        let sumOfElements = getSumOfElements(arr[j]);
+        if (sumOfElements > maxSumOfArray) { // Поиск массива осуществляется через сравнение
+            maxSumOfArray = sumOfElements;
+            maxSumOfArrayIndex = j;
+        }
+    }
+
+    document.write(`Массив с максимальной суммой находится под индексом ${maxSumOfArrayIndex}, его сумма равняется: ${maxSumOfArray}`);
+
+    // Вычисление минимального элемента  массива с максимальной суммой
+    let minNumber = arr[maxSumOfArrayIndex][0]; // Минимальное значение равняется нулевому значению массива
+
+    for (let i = 1; arr[maxSumOfArrayIndex].length > i; i++) { // Поиск минимального значения осуществляется через сравнение
+        if (arr[maxSumOfArrayIndex][i] < minNumber) {
+            minNumber = arr[maxSumOfArrayIndex][i];
+        }
+    }
+    document.write('<br>');
+    document.write(`Минимальное значение этого массива будет равно: ${minNumber}`);
+</script>
+
+</body>
+</html>

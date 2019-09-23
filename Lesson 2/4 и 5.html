@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang=ru>
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 4. Task 4 and Task 5</title>
+</head>
+<body>
+<script>
+    "use strict";
+
+    /*    Реализовать основные 4 арифметические операции (+, -, /, *) в виде функций с двумя параметрами. 
+        Обязательно использовать оператор return.
+
+
+        Реализовать функцию с тремя параметрами: function mathOperation(arg1, arg2, operation), 
+        где arg1, arg2 – значения аргументов, operation – строка с названием операции.
+        В зависимости от переданного значения операции (использовать switch)
+        выполнить одну из арифметических операций (использовать функции из задания 4) и вернуть полученное значение.*/
+
+    /**
+     * Функция проверяет число на его целочисленность.
+     * @param {number} x Число, которое вводит пользователь.
+     * @param {string} mess Сообщение в prompt, которое будет видеть пользователь.
+     * @returns {number} Вернет число х, проверив его на целочисленность.
+     */
+    function isValid(x, mess) {
+        while (true) {
+            x = +prompt(mess);
+            if (Number.isNaN(x) || x % 1 !== 0) {
+                alert('Необходимо ввести целое число');
+                continue;
+            }
+            return x;
+        }
+    }
+
+    /**
+     * Функиця, которае суммирует два числа.
+     * @param {number} x Первое число, которое вводит пользователь.
+     * @param {number} y Второе число, которое вводит пользователь.
+     * @returns {number} Вернет сумму двух чисел.
+     */
+    function sum(x, y) {
+        return x + y;
+    }
+
+    /**
+     * Функиця, которая минусует два числа.
+     * @param {number} x Первое число, которое вводит пользователь.
+     * @param {number} y Второе число, которое вводит пользователь.
+     * @returns {number} Вернет разность двух чисел.
+     */
+    function minus(x, y) {
+        return x - y;
+    }
+
+    /**
+     * Функиця, которая умножает два числа.
+     * @param {number} x Первое число, которое вводит пользователь.
+     * @param {number} y Второе число, которое вводит пользователь.
+     * @returns {number} Вернет умножение двух чисел.
+     */
+
+    function multiply(x, y) {
+        return x * y;
+    }
+
+    /**
+     * Функиця, которая делит два числа.
+     * @param {number} x Первое число, которое вводит пользователь.
+     * @param {number} y Второе число, которое вводит пользователь.
+     * @returns {number} Вернет деление двух чисел.
+     */
+    function division(x, y) {
+        return x / y;
+    }
+
+    /**
+     * Функция, которая спрашивает у пользователя знак математической операции
+     * @param {number} arg1 Передает первое число.
+     * @param {number} arg2 Передает второе число.
+     * @param {string} operation Передает знак операции.
+     * @returns {number} Вернет результат вычисления.
+     */
+    function mathOperation(arg1, arg2, operation) {
+        switch (operation) {
+            case '+':
+                return sum(arg1, arg2);
+            case '-':
+                return minus(arg1, arg2);
+            case '*':
+                return multiply(arg1, arg2);
+            case '/':
+                return division(arg1, arg2);
+            default:
+                alert("Вы ввели неверное значение. Сейчас программа выведет: undefined");
+                break;
+        }
+    }
+
+    // Основное тело программы
+    let a = 0, b = 0;
+    a = isValid(a, "Введите число a");
+    b = isValid(b, "Введите число b");
+
+    let operator = prompt("Введите '+', если хотите сделать сложение\n" + "Введите '-', если хотите сделать вычетание\n" +
+        "ВВедите '*', если хотите сделать умножение\n" + "Введите '/', если хотите сделать деление.");
+    alert(mathOperation(a, b, operator));
+
+</script>
+</body>
+</html>
